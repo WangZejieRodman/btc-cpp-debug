@@ -1,9 +1,0 @@
-{
-  "frame_id": 20,
-  "stage": "3b_binary_descriptors",
-  "binary_descriptors_count": 43.000000,
-  "frame_id": 20.000000,
-  "max_summary": 31.000000,
-  "mean_summary": 16.139535,
-  "min_summary": 10.000000
-}
