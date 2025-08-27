@@ -1,0 +1,14 @@
+{
+  "voxel_size_": 2,
+  "useful_corner_num_": 500,
+  "plane_detection_thre_": 0.01,
+  "proj_plane_num_": 1,
+  "proj_image_resolution_": 0.5,
+  "similarity_threshold_": 0.7,
+  "skip_near_num_": 100,
+  "descriptor_near_num_": 10,
+  "descriptor_min_len_": 2,
+  "descriptor_max_len_": 50,
+  "plane_merge_normal_thre_": 0.1,
+  "plane_merge_dis_thre_": 0.3
+}

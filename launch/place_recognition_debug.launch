@@ -1,0 +1,24 @@
+<launch>
+<!-- Launch file for Debug Place recognition example -->
+
+  <arg name="rviz" default="false" />
+
+  <node 
+		pkg="btc_desc" 
+		type="btc_place_recognition_debug" 
+		name="btc_place_recognition_debug" 
+		output="screen" 
+	/>
+
+  <param name="cloud_overlap_thr" type="double" value = "0.5"/>
+  <param name="read_bin" type="bool" value="true" />
+  <param name="max_frames" type="int" value="50" />
+  <param name="setting_path" type="string" value = "$(find btc_desc)/config/config_outdoor.yaml"/>
+  <param name="pcds_dir" type="string" value = "/home/wzj/pan1/Data/KITTI/00/velodyne"/>
+  <param name="pose_file" type="string" value = "/home/wzj/pan1/btc_ws/src/btc_descriptor/poses/kitti00.txt"/>
+  <param name="output_dir" value="$(find btc_desc)/results"/>
+  <group if="$(arg rviz)">
+    <node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find btc_desc)/rviz_cfg/loop.rviz" />
+  </group>
+
+</launch>

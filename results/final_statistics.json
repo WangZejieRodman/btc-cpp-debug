@@ -1,0 +1,18 @@
+{
+  "processed_frames": 50,
+  "total_loops": 0,
+  "true_loops": 0,
+  "false_loops": 0,
+  "precision": 0,
+  "timing": {
+    "mean_descriptor_time": 9.30151,
+    "mean_query_time": 0.0206616,
+    "mean_update_time": 0.67768,
+    "std_descriptor_time": 1.32066,
+    "std_query_time": 0.00291568,
+    "std_update_time": 0.259446
+  },
+  "loop_details": [
+  ],
+  "database_final_size": 29752
+}

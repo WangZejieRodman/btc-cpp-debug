@@ -49,7 +49,7 @@ include_directories(
 
 add_library(utils_lib src/utils.cpp)
 
-
+# Original place recognition executable
 add_executable(btc_place_recognition example/place_recognition.cpp src/btc.cpp)
 target_link_libraries(btc_place_recognition 
         ${catkin_LIBRARIES} 
@@ -59,5 +59,12 @@ target_link_libraries(btc_place_recognition
         tbb
         utils_lib)
 
-              
-      
+# Debug version of place recognition executable
+add_executable(btc_place_recognition_debug example/place_recognition_debug.cpp src/btc.cpp)
+target_link_libraries(btc_place_recognition_debug 
+        ${catkin_LIBRARIES} 
+        ${PCL_LIBRARIES} 
+        ${OpenCV_LIBS} 
+        ${CERES_LIBRARIES} 
+        tbb
+        utils_lib)

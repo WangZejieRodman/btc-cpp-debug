@@ -1,0 +1,1 @@
+# Detected loops: current_frame matched_frame score status overlap

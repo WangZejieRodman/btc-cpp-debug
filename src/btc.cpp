@@ -673,7 +673,7 @@ void BtcDescManager::PlaneGeomrtricIcp(
     input_cloud->push_back(pi);
   }
   kd_tree->setInputCloud(input_cloud);
-  ceres::Manifold *quaternion_manifold = new ceres::EigenQuaternionManifold;
+  ceres::LocalParameterization *quaternion_manifold = new ceres::EigenQuaternionParameterization;
   ceres::Problem problem;
   ceres::LossFunction *loss_function = nullptr;
   Eigen::Matrix3d rot = transform.second;
@@ -1100,9 +1100,19 @@ void BtcDescManager::extract_binary(
   double cy = y_axis[2];
   double dy = -(ay * project_center[0] + by * project_center[1] +
                 cy * project_center[2]);
+  
+  // DEBUG: 投影坐标系
+  std::cout << "[DEBUG] Projection coordinate system:" << std::endl;
+  std::cout << "  proj_normal: " << project_normal.transpose() << std::endl;
+  std::cout << "  proj_center: " << project_center.transpose() << std::endl;
+  std::cout << "  x_axis: " << x_axis.transpose() << std::endl;
+  std::cout << "  y_axis: " << y_axis.transpose() << std::endl;
+  std::cout << "  A,B,C,D: " << A << ", " << B << ", " << C << ", " << D << std::endl;              
+  
   std::vector<Eigen::Vector2d> point_list_2d;
   pcl::PointCloud<pcl::PointXYZ> point_list_3d;
   std::vector<double> dis_list_2d;
+  int debug_count = 0;  // 在循环前添加
   for (size_t i = 0; i < input_cloud->size(); i++) {
     double x = input_cloud->points[i].x;
     double y = input_cloud->points[i].y;
@@ -1134,6 +1144,14 @@ void BtcDescManager::extract_binary(
         cur_project[0] * ay + cur_project[1] * by + cur_project[2] * cy + dy;
     double project_y =
         cur_project[0] * ax + cur_project[1] * bx + cur_project[2] * cx + dx;
+        
+    // DEBUG: 前10个投影点的详细信息
+    if (debug_count < 10) {
+      std::cout << "[DEBUG] Point " << debug_count << ": 3D(" << x << ", " << y << ", " << z 
+                << ") -> dis=" << dis << " -> 2D(" << project_x << ", " << project_y << ")" << std::endl;
+    }
+    debug_count++;
+    
     Eigen::Vector2d p_2d(project_x, project_y);
     point_list_2d.push_back(p_2d);
     dis_list_2d.push_back(dis);
@@ -1167,6 +1185,14 @@ void BtcDescManager::extract_binary(
   int y_segment_num = (max_y - min_y) / segmen_len + 1;
   int x_axis_len = (int)((max_x - min_x) / resolution + segmen_base_num);
   int y_axis_len = (int)((max_y - min_y) / resolution + segmen_base_num);
+  
+  // DEBUG: 图像网格参数
+  std::cout << "[DEBUG] Image grid parameters:" << std::endl;
+  std::cout << "  2D bounds: x[" << min_x << ", " << max_x << "], y[" << min_y << ", " << max_y << "]" << std::endl;
+  std::cout << "  resolution: " << resolution << ", segmen_base_num: " << segmen_base_num << std::endl;
+  std::cout << "  grid size: x_axis_len=" << x_axis_len << ", y_axis_len=" << y_axis_len << std::endl;
+  std::cout << "  segments: x_segment_num=" << x_segment_num << ", y_segment_num=" << y_segment_num << std::endl;
+  std::cout << "  projected points count: " << point_list_2d.size() << std::endl;
 
   std::vector<double> **dis_container = new std::vector<double> *[x_axis_len];
   BinaryDescriptor **binary_container = new BinaryDescriptor *[x_axis_len];

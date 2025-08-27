@@ -1,0 +1,14 @@
+{
+  "frame_id": 41,
+  "stage": "2_transformed_pointcloud",
+  "frame_id": 41.000000,
+  "max_x_transformed": 114.714188,
+  "max_y_transformed": 44.177471,
+  "max_z_transformed": 3.559302,
+  "min_x_transformed": -44.264130,
+  "min_y_transformed": -19.303070,
+  "min_z_transformed": -10.658826,
+  "translation_x": 36.170600,
+  "translation_y": 2.032040,
+  "translation_z": 0.230485
+}

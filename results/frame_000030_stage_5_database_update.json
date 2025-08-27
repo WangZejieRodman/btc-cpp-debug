@@ -1,0 +1,8 @@
+{
+  "frame_id": 30,
+  "stage": "5_database_update",
+  "database_entries": 20351.000000,
+  "downsampled_cloud_size": 7800.000000,
+  "frame_id": 30.000000,
+  "key_clouds_count": 30.000000
+}
